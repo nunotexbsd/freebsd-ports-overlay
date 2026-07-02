@@ -1,6 +1,7 @@
 PORTNAME=	dethrace
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.10.1
+DISTVERSION=	0.10.1-553
+DISTVERSIONSUFFIX=	-ga8031fe
 CATEGORIES=	games
 
 MAINTAINER=	eduardo@FreeBSD.org
@@ -13,7 +14,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 USES=		cmake:testing sdl
 USE_GITHUB=	yes
 GH_ACCOUNT=	dethrace-labs
-GH_TUPLE=	dethrace-labs:BRender-v1.3.2:44d27ffa026a0a3ea4dc0642315913bf5bc27e25:brender/lib/BRender-v1.3.2
+GH_TUPLE=	dethrace-labs:BRender-v1.3.2:b84d73bab84e7cbf3303c88c5bc088ad1374d8f9:brender/lib/BRender-v1.3.2
 USE_SDL=	sdl3
 
 CMAKE_ON=	DETHRACE_INSTALL DETHRACE_PLATFORM_SDL3
