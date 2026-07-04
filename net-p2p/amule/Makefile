@@ -1,8 +1,9 @@
 PORTNAME=	amule
-DISTVERSION=	3.0.1
+DISTVERSION=	3.0.1-42
+DISTVERSIONSUFFIX=	-g0db667ef0
 CATEGORIES=	net-p2p
-MASTER_SITES=	https://github.com/amule-org/amule/releases/download/${DISTVERSION}/
-DISTNAME=	aMule-${DISTVERSION}-src
+#MASTER_SITES=	https://github.com/amule-org/amule/releases/download/${DISTVERSION}/
+#DISTNAME=	aMule-${DISTVERSION}-src
 
 MAINTAINER=	eduardo@FreeBSD.org
 COMMENT=	All-platform P2P client based on eMule
@@ -11,21 +12,23 @@ WWW=		https://github.com/amule-project/amule
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/docs/COPYING
 
-BUILD_DEPENDS=	cryptopp-modern>0:security/cryptopp-modern
+BUILD_DEPENDS=	cryptopp-modern>0:security/cryptopp-modern \
+		po4a>0:textproc/po4a
 LIB_DEPENDS=	libcurl.so:ftp/curl
 
 USES=		cmake:testing gettext-runtime gnome localbase:ldflags pkgconfig \
 		readline
+USE_GITHUB=	yes
+GH_ACCOUNT=	amule-org
 USE_GNOME=	glib20
 USE_RC_SUBR=	amuled
 USE_WX=		3.2
 
 CMAKE_ON=	BUILD_ALC BUILD_ALCC BUILD_AMULECMD BUILD_DAEMON BUILD_ED2K \
-		BUILD_WXCAS
-CMAKE_OFF=	BUILD_TESTING DEFAULT_VERSION_CHECK ENABLE_BFD ENABLE_CCACHE \
-		TRANSLATED_MANPAGES
+		BUILD_WXCAS TRANSLATED_MANPAGES
+CMAKE_OFF=	BUILD_TESTING ENABLE_VERSION_CHECK ENABLE_BFD ENABLE_CCACHE
 
-WRKSRC=		${WRKDIR}/aMule-${DISTVERSION}
+#WRKSRC=		${WRKDIR}/aMule-${DISTVERSION}
 
 OPTIONS_DEFINE=			CAS DOCS FILEVIEW GEOIP NLS UPNP WEBSERVER
 OPTIONS_DEFAULT=		AMULEGUI CAS FILEVIEW GEOIP MONOLITHIC \
@@ -70,9 +73,9 @@ PLIST_SUB+=	AMULESKIN=""
 PLIST_SUB+=	AMULESKIN="@comment "
 .endif
 
-post-patch:
-	@${REINPLACE_CMD} -e 's|"aMule GIT"|"aMule ${DISTVERSION}"|g' \
-		-e 's|VERSION "GIT"|VERSION "${DISTVERSION}"|g' \
-		${WRKSRC}/CMakeLists.txt
+#post-patch:
+#	@${REINPLACE_CMD} -e 's|"aMule GIT"|"aMule ${DISTVERSION}"|g' \
+#		-e 's|VERSION "GIT"|VERSION "${DISTVERSION}"|g' \
+#		${WRKSRC}/CMakeLists.txt
 
 .include <bsd.port.mk>
